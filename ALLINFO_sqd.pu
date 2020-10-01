@@ -1,0 +1,64 @@
+@startuml 
+hide footbox
+Title ALLINFO
+participant FunctionController
+participant AllinfoService
+participant AllInfoDao
+Participant ExifInfo
+
+activate FunctionController
+create AllinfoService
+FunctionController -> AllinfoService : new
+FunctionController -> AllinfoService : doService
+activate AllinfoService
+create AllInfoDao
+AllinfoService -> AllInfoDao    : new
+group 例外処理
+    AllinfoService -> AllinfoService : outputData.put("ERRORMESSAGE", "データベースに接続できませんでした")
+    AllinfoService -> AllinfoService : return false
+end
+AllinfoService -> AllInfoDao : queryExifInfo()
+activate AllInfoDao
+AllInfoDao -> AllInfoDao : sqlにSELECT文をセット
+AllInfoDao -> AllInfoDao : stmt = con.preparedStatement(sql)
+AllInfoDao -> AllInfoDao : rs = stmt.executeQuery()
+loop rs.nextがtrueの間
+    create  ExifInfo
+    AllInfoDao -> ExifInfo : new
+    AllInfoDao -> ExifInfo : setId(rs.getInt("id"))
+    AllInfoDao -> ExifInfo : setFileName(rs.setString("filename"))
+    AllInfoDao -> ExifInfo : setPhotographingDate(rs.setDate("photographingdate"))
+    AllInfoDao -> ExifInfo : setPhotographingTime(rs.setTime("photographingtime"))
+    AllInfoDao -> ExifInfo : setCameraMaker(rs.setString("cameramaker"))
+    AllInfoDao -> ExifInfo : setCameraType(rs.setString("cameratype"))
+    AllInfoDao -> ExifInfo : setLongitude(rs.setDouble("longitude"))
+    AllInfoDao -> ExifInfo : setLatitude(rs.setDouble("latitude"))
+    AllInfoDao -> AllInfoDao : exifInfoList.add(exifInfo)
+end
+AllInfoDao -> AllInfoDao : stmt, rsをクローズ
+note left: finally句
+AllinfoService <-- AllInfoDao : exifinfoList
+deactivate AllInfoDao
+
+alt exifInfoListの要素数が0
+    AllinfoService <- AllinfoService : outputData.put("ERRORMESSAGE", "画像情報が登録されていません")
+    AllinfoService <- AllinfoService : return false
+else exifinfoListの要素数が1以上
+    AllinfoService <- AllinfoService : exifInfo[]にexifInfoListの値を格納
+    note right: すべてStringに変換
+    AllinfoService <- AllinfoService : outputData.put("listData", exifInfo)
+    AllinfoService <- AllinfoService : return true
+end
+group 例外処理
+    AllinfoService <- AllinfoService : outputData.Data("ERRORMESSAGE", "予期しないエラーが発生しました")
+    AllinfoService <- AllinfoService : return false
+end
+note right: 例外
+
+group finally句
+    AllinfoService -> AllInfoDao : close()
+end
+FunctionController <-- AllinfoService : result
+deactivate AllinfoService
+
+@enduml
