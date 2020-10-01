@@ -1,0 +1,86 @@
+@startuml emsproject2020
+
+class FunctionController {
+    +doTask(inputData: String[],outputData: Map<String, Object>): boolean
+}
+
+interface Service {
+    {static}+EXIF_DATA_MAX_COLUMN: int
+    {static}+MODEL_DATA_MAX_COLUMN: int
+    {abstract}+doService(inputData: String[],outputData: Map<String, Object>): boolean
+
+}
+
+class AllInfoService {
+    +AllInfoService()
+    +doService(inputData: String[],outputData: Map<String, Object>): boolean
+}
+
+class SingleInfoService {
+    +SingleInfoService()
+    +doService(inputData: String[],outputData: Map<String, Object>): boolean
+}
+
+class AllInfoDao {
+    -con: Connection
+    {static}-URL: String
+    {static}-DB_NAME: String
+    {static}-DB_PASSWORD: String
+    {static}-COMMAND_TIMEOUT_SESSION: int
+    +AllInfoDao(): void
+    +queryExifInfo(): List<ExifInfo>
+    +close(): void
+    -closeResource(AutoCloseable resource): void
+}
+
+class SingleInfoDao {
+    -con: Connection
+    {static}-URL: String
+    {static}-DB_NAME: String
+    {static}-DB_PASSWORD: String
+    {Static}-COMMAND_TIMEOUT_SESSION: int
+    +SingleInfoDao()
+    +queryExifInfoById(exifif: int): ExifInfo
+    +querExtraInfo(exifid: int): List<ExtraInfo>
+    +close()
+    -closeResource(AutoCloseable resource): void
+}
+/' DTO '/
+class ExifInfo {
+    -id: int
+    -fileName: String
+    -photographingDate: Date
+    -photographingTime: Time
+    -cameraMaker: String
+    -cameraTYpe: String
+    -longitude: Double
+    -latitude: Double
+    +setter()
+    +getter();
+}
+/' DTO '/
+class ExtraInfo {
+    -exifId: id
+    -infoId: int
+    -status: boolean
+    -infoText: String
+    +setter()
+    +getter()
+}
+
+FunctionController ..> Service
+Service <|.. AllInfoService
+Service <|.. SingleInfoService
+AllInfoDao <.. AllInfoService
+SingleInfoDao <.. SingleInfoService
+AllInfoDao <.. ExifInfo
+SingleInfoDao <.. ExifInfo
+SingleInfoDao <.. ExtraInfo
+/'
+AllInfoDao "0..1" o.. "0..n" ExifInfo
+SingleInfoDao "0..1" o.. "0..1" ExifInfo
+SingleInfoDao "0..1" o.. "0..n" ExtraInfo
+'/
+
+
+@enduml
