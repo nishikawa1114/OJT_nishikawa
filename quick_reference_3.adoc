@@ -1,0 +1,10 @@
+= 3. ドキュメントヘッダー
+著者名 <doc.writer@asciidoctor.org>
+v1.0 2014-01-01
+:doctype: book
+:icons: font
+:toc: left
+:imagesdir: assets/image
+:homepage: http://asciidoctor.org
+
+本ドキュメントは．．．
