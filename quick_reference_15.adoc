@@ -1,0 +1,113 @@
+= 15.テーブル
+
+:table-caption: 表
+
+=== 15.1. タイトル、ヘッダ付き2×3
+
+.テーブルタイトル
+|===
+|カラム名1 |カラム名2 | カラム名3
+
+|セル11
+|セル12
+|セル13
+
+|セル21
+|セル22
+|セル23
+|===
+
+=== 15.2. ヘッダ付き2×2
+
+[cols="2*", options="header"]
+|===
+|カラム名1
+|カラム名2
+
+|セル11
+|セル12
+
+|セル21
+|セル22
+|===
+
+=== 15.3. タイトル、ヘッダ付き2×3
+
+[cols="1,1,2", options="header"]
+.テーブルタイトル
+|===
+|名前
+|カテゴリ
+|説明
+
+|FireFox
+|ブラウザ
+|オープンソースのブラウザです。
+標準仕様に準拠しており、高パフォーマンス、高い可搬性という特徴があります。
+
+|Arquillian
+|テスト
+|革新的かつ高度の拡張可能なテストプラットフォームです。
+開発者が実際の自動テストを簡単に作成できるようにします。
+|===
+
+=== 15.4. AsciiDocコンテンツ入り
+
+[cols="2,2,5a"]
+|===
+|FireFox
+|ブラウザ
+|FireFoxはオープンソースのWEBブラウザです。
+
+下記のような特徴があります。
+
+* 標準仕様準拠
+* 高パフォーマンス
+* 高い可搬性
+
+http://getfirefox.com[Firefoxをダウンロードする]!
+|===
+
+=== 15.5. CSVデータ読み込み
+
+[format="csv", options="header"]
+|===
+アーティスト,トラック,ジャンル
+Baauer,Harlem Shake,Hip Hop
+The Lumineers,Ho Hey,Folk Rock
+|===
+
+=== 15.6. CSVデータ読み込み(簡略記法、Asciidoctor限定)
+
+[format="csv", options="header"]
+,===
+アーティスト,トラック,ジャンル
+
+Baauer,Harlem Shake,Hip Hop
+The Lumineers,Ho Hey,Folk Rock
+,===
+
+=== 15.7. CSVファイル読み込み
+
+[format="csv", options="header"]
+|===
+include::customers.csv[]
+|===
+
+=== 15.8. DSVデータ読み込み(簡略記法、Asciidoctor限定)
+
+:===
+Artist:Track:Genre
+
+Robyn:Indestructable:Dance
+:===
+
+=== 15.9. 整形、セル結合
+
+[cols="e,m,^,>s", width="25%"]
+|===
+|1 >s|2 |3 |4
+^|5 2.2+^.^|6 .3+<.>m|7
+^|8
+|9 2+>|10
+|===
