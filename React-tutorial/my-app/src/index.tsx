@@ -4,7 +4,7 @@ import { Board } from './Board';
 import './index.css';
   
   class Game extends React.Component {
-    render() {
+    public render() {
       return (
         <div className="game">
           <div className="game-board">
@@ -26,3 +26,4 @@ import './index.css';
     document.getElementById('root')
   );
   
+

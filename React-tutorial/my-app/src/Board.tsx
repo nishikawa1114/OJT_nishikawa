@@ -1,12 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
 import { Square } from './Square';
 import { calculateWinner } from './calculateWinner';
 
-interface BoardProps {
-  // squares: Array<string>;
-}
+interface BoardProps {}
 
 interface BoardState {
   squares: Array<string>;
@@ -14,7 +11,7 @@ interface BoardState {
 }
 
 export class Board extends React.Component<BoardProps, BoardState> {
-  constructor(props: BoardProps) {
+  public constructor(props: BoardProps) {
     super(props);
     this.state = {
       squares: Array(9).fill(''),
@@ -34,7 +31,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
     });
   }
 
-  renderSquare(i: number) {
+  private renderSquare(i: number) {
     return (
       <Square
         value={this.state.squares[i]}
@@ -43,7 +40,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
     );
   }
 
-  render() {
+  public render() {
     const winner = calculateWinner(this.state.squares);
     let status: string;
     if (winner) {

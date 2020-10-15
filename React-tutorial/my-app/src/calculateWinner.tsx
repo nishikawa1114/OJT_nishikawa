@@ -1,7 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
-import { Square } from './Square';
 
 export function calculateWinner(squares: Array<string>) {
     const lines = [
@@ -20,5 +17,5 @@ export function calculateWinner(squares: Array<string>) {
             return squares[a];
         }
     }
-    // return null;
+    return null;
 }
