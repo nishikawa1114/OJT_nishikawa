@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Square } from './Square';
-import { calculateWinner } from './calculatteWinner';
+import { calculateWinner } from './calculateWinner';
 
 interface BoardProps {
   // squares: Array<string>;
