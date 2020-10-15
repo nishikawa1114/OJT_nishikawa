@@ -22,7 +22,7 @@ export class Board extends React.Component<BoardProps, BoardState> {
     };
   }
 
-  handleClick(i: number) {
+  private handleClick(i: number) {
     const squares = this.state.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
       return;
