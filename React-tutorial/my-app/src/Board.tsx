@@ -7,12 +7,7 @@ interface BoardProps {
   onClick: (i: number) => void;
 }
 
-interface BoardState {
-  squares: Array<string>;
-  xIsNext: boolean;
-}
-
-export class Board extends React.Component<BoardProps, BoardState> {
+export class Board extends React.Component<BoardProps> {
   private renderSquare(i: number) {
     return (
       <Square
